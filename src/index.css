@@ -271,7 +271,7 @@ footer {
 }
 
 .post__footer {
-  displaye: flex;
+  display: flex;
   justify-content: space-between;
   align-items: flex-end;
   margin-top: 2rem;
