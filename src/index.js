@@ -2,11 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import Home from "./pages/Home";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Logout from "./pages/Logout";
 import Layout from "./components/Layout";
 import ErrorPage from "./pages/ErrorPage";
 import PostDetail from "./pages/PostDetail";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
 import UserProfile from "./pages/UserProfile";
 import Authors from "./pages/Authors";
 import CreatePost from "./pages/CreatePost";
@@ -14,8 +17,6 @@ import CategoryPosts from "./pages/CategoryPosts";
 import AuthorPosts from "./pages/AuthorPosts";
 import Dashboard from "./pages/Dashboard";
 import EditPosts from "./pages/EditPost";
-import Logout from "./pages/Logout";
-import Home from "./pages/Home";
 
 const router = createBrowserRouter([
   {
