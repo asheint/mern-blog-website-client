@@ -379,7 +379,7 @@ textarea {
 // custom style for react quil
 
 .ql-editor {
-  overflow: scroll;
+  overflow: hidden;
   background: var(--color-white);
   height: 10rem;
 }

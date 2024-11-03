@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
+import '../index.css'
 
 
 const CreatePost = () => {
@@ -34,7 +35,7 @@ const CreatePost = () => {
           <input type="text" placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} autoFocus />
           <select name="category" id="category" value={category} onChange={e => setCategory(e.target.value)}>
             {
-              POST_CATEGORIES.map(cat => <option key={cat} value={cat}></option>)
+              POST_CATEGORIES.map(cat => <option key={cat} value={cat}>{cat}</option>)
             }
             </select>
             <ReactQuill modules={modules} formats={formats} value={description} onChange={setDescription} />
