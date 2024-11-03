@@ -28,7 +28,7 @@ const UserProfile = () => {
             </form>
             <button className='profile__avatar-btn'><FaCheck /></button>
           </div>
-          <h1>Chandrapala Silva</h1>
+          <h1>Ashen T</h1>
 
           {/* form to update user details */}
           <form action="" className="form profile__form">

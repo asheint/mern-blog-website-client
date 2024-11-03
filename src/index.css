@@ -376,6 +376,14 @@ textarea {
   color: var(--color-primary);
 }
 
+// custom style for react quil
+
+.ql-editor {
+  overflow: scroll;
+  background: var(--color-white);
+  height: 10rem;
+}
+
 /* ====================== AUTHORS ====================== */
 
 .authors__container {
@@ -474,4 +482,41 @@ textarea {
   margin-top: 3rem;
   margin-inline: auto;
   width: var(--form-width);
+}
+
+/* ====================== DASHBOARD ====================== */
+
+.dashboard__container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.dashboard__post {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 1.2rem;
+  background: var(--color-white);
+  border-radius: var(--radius-2);
+  border-radius: var(--radius-3);
+}
+
+.dashboard__post-info {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  align-items: center;
+}
+
+.dashboard__post-thumbnail {
+  width: 4rem;
+  overflow: hidden;
+  border-radius: var(--radius-1);
+}
+
+.dashboard__post-actions {
+  display: flex;
+  gap: 1rem;
 }
