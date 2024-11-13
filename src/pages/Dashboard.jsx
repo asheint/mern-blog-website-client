@@ -1,9 +1,23 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useContext, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import{ DUMMY_POSTS } from '../data'
+import { UserContext } from '../context/UserContext'
 
 const Dashboard = () => {
-  const [posts, setPosts] = useState(DUMMY_POSTS)
+  const [posts] = useState(DUMMY_POSTS)
+
+  const navigate = useNavigate()
+
+  const {currentUser} = useContext(UserContext)
+  const token = currentUser?.token
+
+  // redirect if user is not logged in
+  useEffect(() => {
+    if (!token) {
+      navigate('/login')
+    }
+  }, [navigate, token])
+
   return (
       <section className="dashboard">
         {
@@ -18,9 +32,9 @@ const Dashboard = () => {
                     <h5>{post.title}</h5>
                   </div>
                   <div className="dashboard__post-actions">
-                    <Link to={'/posts/${post.id'} className='btn sm'>View</Link>
-                    <Link to={'/posts/${post.id}/edit'} className='btn sm primary'>Edit</Link>
-                    <Link to={'/posts/${post.id}/delete'} className='btn sm danger'>Delete</Link>
+                    <Link to={`/posts/${post.id}`} className='btn sm'>View</Link>
+                    <Link to={`/posts/${post.id}/edit`} className='btn sm primary'>Edit</Link>
+                    <Link to={`/posts/${post.id}/delete`} className='btn sm danger'>Delete</Link>
                   </div>
                 </article>
               })
