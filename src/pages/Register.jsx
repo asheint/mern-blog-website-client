@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
-const ASSETS_URL = process.env.REACT_APP_ASSETS_URL;
 
 const Register = () => {
   const [userData, setUserData] = useState({
