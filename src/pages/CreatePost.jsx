@@ -4,13 +4,17 @@ import 'react-quill/dist/quill.snow.css'
 import '../index'
 import { UserContext } from '../context/UserContext'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
+const ASSEST_URL = process.env.REACT_APP_ASSETS_URL;
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const CreatePost = () => {
   const [title, setTitle] = useState('')
   const [category, setCategory] = useState('Uncategorized')
   const [description, setDescription] = useState('')
   const [thumbnail, setThumbnail] = useState('')
+  const [error, setError] = useState('')
   const navigate = useNavigate()
 
   const {currentUser} = useContext(UserContext)
@@ -37,14 +41,33 @@ const CreatePost = () => {
 
   const POST_CATEGORIES = ['Agriculture', 'Health', 'Bussiness', 'Education', 'Entertainment', 'Art', 'Investment', 'Uncategorized', 'Weather']
 
+  const CreatePost = async (e) => {
+    e.preventDefault();
+
+    const postData = new FormData()
+    postData.set('title', title)
+    postData.set('category', category)
+    postData.set('description', description)
+    postData.set('thumbnail', thumbnail)
+
+    try {
+      const response = await axios.post(`${BASE_URL}/posts`, postData, {withCredentials: true, headers: {Authorization: `Bearer ${token}`}})
+      if (response.status === 201) {
+        navigate('/')
+      }
+    } catch (error) {
+      
+    }
+  }
+
   return (
     <section className="create-post">
       <div className="container">
         <h2>Create Post</h2>
-        <p className="form__error-message">
-          This is an error message
-        </p>
-        <form className="form create-post__form">
+        {error && <p className="form__error-message">
+          {error}
+        </p>}
+        <form className="form create-post__form" onSubmit={CreatePost}>
           <input type="text" placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} autoFocus />
           <select name="category" id="category" value={category} onChange={e => setCategory(e.target.value)}>
             {
