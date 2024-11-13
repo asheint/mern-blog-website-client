@@ -1,7 +1,6 @@
 import React, {useEffect, useContext, useState} from 'react'
 import { Link, useParams } from 'react-router-dom'
 import PostAuthor from '../components/PostAuthor'
-import Thumbnail from '../images/thumbnail.jpg'
 import {UserContext} from '../context/UserContext'
 import DeletePost from '../pages/DeletePost'
 import Loader from '../components/Loader'
@@ -45,7 +44,7 @@ getPost()
         <div className="post-detail__header">
           <PostAuthor authorID={post.creator} createdAt={post.createdAt}/>
           {currentUser?.id === post?.creator && <div className="post-detail__buttons">
-            <Link to={'/posts/werwer/edit'} className="btn sm primary">Edit</Link>
+            <Link to={`/posts/${post?._id}/edit`} className="btn sm primary">Edit</Link>
             <DeletePost postId={id}/>
           </div>}
         </div>
