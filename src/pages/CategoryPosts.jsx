@@ -25,7 +25,7 @@ const CategoryPosts = () => {
         setIsLoading(false)
       }
       fetchPosts();
-    },[])
+    },[category])
 
     if(isLoading) {
       return <Loader />
