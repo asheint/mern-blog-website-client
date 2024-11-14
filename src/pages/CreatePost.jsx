@@ -41,7 +41,7 @@ const CreatePost = () => {
 
   const POST_CATEGORIES = ['Agriculture', 'Health', 'Bussiness', 'Education', 'Entertainment', 'Art', 'Investment', 'Uncategorized', 'Weather']
 
-  const CreatePost = async (e) => {
+  const createPost = async (e) => {
     e.preventDefault();
 
     const postData = new FormData()
@@ -55,8 +55,8 @@ const CreatePost = () => {
       if (response.status === 201) {
         navigate('/')
       }
-    } catch (error) {
-      
+    } catch (err) {
+      setError(err.response.data.message)
     }
   }
 
@@ -67,7 +67,7 @@ const CreatePost = () => {
         {error && <p className="form__error-message">
           {error}
         </p>}
-        <form className="form create-post__form" onSubmit={CreatePost}>
+        <form className="form create-post__form" onSubmit={createPost}>
           <input type="text" placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} autoFocus />
           <select name="category" id="category" value={category} onChange={e => setCategory(e.target.value)}>
             {
@@ -75,8 +75,8 @@ const CreatePost = () => {
             }
             </select>
             <ReactQuill modules={modules} formats={formats} value={description} onChange={setDescription} />
-            <input type="file" value={thumbnail} onChange={e => setThumbnail(e.target.files[0])} accept='png, jpg, jpeg' />
-            <button type="button" className='btn primary'>Create</button>
+            <input type="file" onChange={e => setThumbnail(e.target.files[0])} accept='png, jpg, jpeg' />
+            <button type="submit" className='btn primary'>Create</button>
         </form>
       </div>
     </section>
