@@ -55,7 +55,11 @@ const CreatePost = () => {
         navigate('/')
       }
     } catch (err) {
-      setError(err.response.data.message)
+      if(err.response) {
+        setError(err.response.data.message)
+      } else {
+        setError("An unexpected error occurred. Please try again.");
+    }
     }
   }
 
