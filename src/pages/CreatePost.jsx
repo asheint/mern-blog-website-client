@@ -6,7 +6,6 @@ import { UserContext } from '../context/UserContext'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-const ASSEST_URL = process.env.REACT_APP_ASSETS_URL;
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const CreatePost = () => {
