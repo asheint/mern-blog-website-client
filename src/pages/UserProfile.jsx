@@ -15,6 +15,7 @@ const UserProfile = () => {
   const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [confirmNewPassword, setConfirmNewPassword] = useState('')
+  const [error, setError] = useState('')
 
   const [isAvatarTouched, setIsAvatarTouched] = useState(false)
 
@@ -30,6 +31,18 @@ const UserProfile = () => {
     }
   }, [navigate, token])
 
+  useEffect(() => {
+    const getUser = async () => {
+      const response = await axios.get(`${BASE_URL}/users/${currentUser.id}`, {withCredentials: true, headers: {Authorization: `Bearer ${token}`} })
+      const { name, email, avatar } = response?.data
+      setName(name)
+      setEmail(email)
+      setAvatar(avatar)
+    }
+
+    getUser()
+  }, [currentUser.id, token])
+
   const changeAvatarHandle = async () => {
     setIsAvatarTouched(false)
     try {
@@ -39,6 +52,27 @@ const UserProfile = () => {
       setAvatar(response?.data.avatar)
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  const updateUserDetails = async (e) => {
+    e.preventDefault()
+    
+    try {
+      const userData = new FormData()
+      userData.set('name', name)
+      userData.set('email', email)
+      userData.set('currentPassword', currentPassword)
+      userData.set('newPassword', newPassword)
+      userData.set('confirmNewPassword', confirmNewPassword)
+
+      const response = await axios.patch(`${BASE_URL}/users/edit-user`, userData, {withCredentials: true, headers: {Authorization: `Bearer ${token}`} })
+      if (response?.status === 200) {
+      // log user out
+      navigate('/logout')
+    }
+    } catch (error) {
+      setError(error?.response?.data?.message)      
     }
   }
 
@@ -61,8 +95,8 @@ const UserProfile = () => {
           <h1>{currentUser.name}</h1>
 
           {/* form to update user details */}
-          <form action="" className="form profile__form">
-            <p className="form__error-message">This is an error message</p>
+          <form action="" className="form profile__form" onSubmit={updateUserDetails}>
+            {error && <p className="form__error-message">{error}</p>}
             <input type="text" placeholder="Full Name" value={name} onChange={e => setName(e.target.value)} />
             <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
             <input type="password" placeholder="Current Password" value={currentPassword} onChange={e => setCurrentPassword(e.target.value)} />
